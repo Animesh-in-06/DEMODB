@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #4e73df, #1cc88a);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #4e73df;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background: #2e59d9;
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 15px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h2>User Form</h2>
+    <form id="userForm">
+      <input type="text" id="name" placeholder="Name" required>
+      <input type="number" id="age" placeholder="Age" required>
+      <input type="text" id="address" placeholder="Address" required>
+      <input type="tel" id="phone" placeholder="Phone Number" required>
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <!-- <script>
+    document.getElementById("userForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const data = {
+        name: document.getElementById("name").value,
+        age: document.getElementById("age").value,
+        address: document.getElementById("address").value,
+        phone: document.getElementById("phone").value
+      };
+
+      fetch("https://your-backend-url.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      })
+      .then(res => res.json())
+      .then(response => {
+        alert(response.message);
+      })
+      .catch(error => {
+        alert("Error submitting form");
+      });
+    });
+  </script> -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const supabaseUrl = "https://nsqigqdrkojgnzpbzbuf.supabase.co";
+const supabaseKey = "sb_publishable_q6_-OPdYeVUzquzi_kMOZw_HOvlmhv_";
+
+const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+document.getElementById("form").addEventListener("submit", async function(e) {
+  e.preventDefault();
+
+  const { data, error } = await supabase
+    .from("users")
+    .insert([
+      {
+        name: document.getElementById("name").value,
+        age: document.getElementById("age").value,
+        address: document.getElementById("address").value,
+        phone: document.getElementById("phone").value
+      }
+    ]);
+
+  if (error) {
+    alert("Error saving data");
+    console.log(error);
+  } else {
+    alert("Data saved successfully!");
+  }
+});
+</script>
+
+</body>
+</html>
