@@ -105,7 +105,7 @@ const supabaseKey = "sb_publishable_q6_-OPdYeVUzquzi_kMOZw_HOvlmhv_";
 
 const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 
-document.getElementById("form").addEventListener("submit", async function(e) {
+document.getElementById("userform").addEventListener("submit", async function(e) {
   e.preventDefault();
 
   const { data, error } = await supabase
@@ -130,3 +130,4 @@ document.getElementById("form").addEventListener("submit", async function(e) {
 
 </body>
 </html>
+
